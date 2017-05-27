@@ -6,6 +6,8 @@ from flask import Flask, request
 from facepy import GraphAPI as bb
 from pytube import YouTube as vida
 
+mygroup = os.environ["my_token"]
+log("VToken: "+mygroup)
 app = Flask(__name__)
 
 
