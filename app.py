@@ -16,7 +16,7 @@ def verify():
     # when the endpoint is registered as a webhook, it must echo back
     # the 'hub.challenge' value it receives in the query arguments
     if request.args.get("hub.mode") == "subscribe" and request.args.get("hub.challenge"):
-        if not request.args.get("hub.verify_token") == "wanyiri":
+        if not request.args.get("hub.verify_token") == "done":
             return "Verification token mismatch", 403
         return request.args["hub.challenge"], 200
 
@@ -29,7 +29,7 @@ def webhook():
     # endpoint for processing incoming messaging events
 
     data = request.get_json()
-    log(data)  # you may not want to log every incoming message in production, but it's good for testing
+    #log(data)  # you may not want to log every incoming message in production, but it's good for testing
 
     if data["object"] == "page":
 
@@ -41,7 +41,7 @@ def webhook():
                     sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
-
+                    log(sender_id, message_text+"? Roger that!")
                     send_message(sender_id, message_text+"? Roger that!")
 
                 if messaging_event.get("delivery"):  # delivery confirmation
