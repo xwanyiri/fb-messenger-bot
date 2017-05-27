@@ -1,9 +1,10 @@
 import os
 import sys
 import json
-
 import requests
 from flask import Flask, request
+from facepy import GraphAPI as bb
+from pytube import YouTube as vida
 
 app = Flask(__name__)
 
@@ -39,7 +40,7 @@ def webhook():
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
 
-                    send_message(sender_id, "roger that!")
+                    send_message(sender_id, message_text+"? Roger that!")
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
